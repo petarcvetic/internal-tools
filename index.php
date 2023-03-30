@@ -1,5 +1,4 @@
 <?php
-// probni komentar
 	//SEO
 	$page_title = "Kartica Firme";
 	$keywords = "mont,kartica,firme,dobavljac,faktura";
