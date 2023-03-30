@@ -10,7 +10,6 @@
 
 	include "dbconfig.php";
 
-
 	/*KLIKNUTO JE DUGME LOGIN NA LOGIN FORMI*/
 	if (isset($_POST['submitBtnLogin'])) {
 
