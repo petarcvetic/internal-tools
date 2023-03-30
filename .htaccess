@@ -1,0 +1,4 @@
+# enable PHP error logging
+php_value error_reporting 2047
+php_value error_log ../httpd-error.log
+php_value log_errors_max_len 52428800

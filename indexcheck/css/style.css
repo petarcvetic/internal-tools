@@ -1,0 +1,50 @@
+.container{
+    padding-top: 120px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding-top: 20px;
+    background-color: #eaeaea;
+    color: #737373;
+    text-align: center;
+}
+
+.navbar{
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+	background-color: #eaeaea !important;
+}
+
+.nav-item{
+	margin-left: 20px;
+}
+
+.row{
+    margin: 35px 0;
+}
+
+#test-result h2{
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+#popup-head{
+    text-align: center;
+    padding:5px;
+}
+
+#popup-head i{
+    float:right;    
+}
+
+#popup-content{
+    padding: 40px;
+}
