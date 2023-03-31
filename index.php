@@ -31,7 +31,14 @@
 ?>
 
 	<div class="container">
+<style>
+.container {
 
+   background: url(img/exe-digi.webp) no-repeat center center fixed; 
+  background-size: 30%;
+
+}
+</style>
 <?php
 	/*AKO JE USER ULOGOVAN (ako postoji sesija sess_user_id*/
 	if ($user->is_loggedin() != "") {
@@ -52,14 +59,15 @@
 
 		<h1> EXECUTIVE DIGITAL - INTERNAL TOOLS </h1>
 
-		<div class="toolbox">Tools
+		<div class="toolbox">
+			Tools
 			<ul>
-				<li>NAS</li>
-				<li>DizNAS</li>
-				<li>tul1</li>
-				<li>tul2</li>
-				<li>tul3</li>
-				<li>tul4</li>
+		      <li>Tool 1</li>
+				<li>Tool 2</li>
+				<li>Tool 3</li>
+				<li>Tool 4</li>
+				<li>Tool 5</li>
+				<li>Tool 6</li>
 			</ul>
 		</div>
 

@@ -1321,7 +1321,20 @@ div.pagination span.disabled {
 	}
 }
 .toolbox {
-	border: 1px solid #c21a0e;
+	position: fixed;
+	left: 80px;
+	top: 250px;
+	border: 3px solid #c21a0e;
 	border-radius: 3px;
-	width: 140px;
+	width: 250px; 
+	padding: 10px;
+	text-align: center;
+}
+ul {
+	list-style: none;
+	text-align: left;
+
+}
+h1 {
+	text-align: center;
 }
