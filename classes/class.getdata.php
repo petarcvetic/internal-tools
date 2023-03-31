@@ -127,6 +127,15 @@ class GetData {
 		return $count;
 	}
 
+	public function if_tool_exists($tool_url, $tool_username) {
+		$query = "SELECT COUNT(*) FROM tools WHERE tool_url='$tool_url' && tool_username='$tool_username'";
+
+		$stmt = $this->db->prepare($query);
+		$stmt->execute();
+		$count = $stmt->fetchColumn();
+		return $count;
+	}
+
 	public function get_poslednji_projekat(){
 
 		$query = "SELECT * FROM `projects` ORDER BY project_id DESC LIMIT 1";
@@ -141,6 +150,17 @@ class GetData {
 
 	public function get_all_users() {
 		$query = "SELECT * FROM users";
+
+		$stmt = $this->db->prepare($query);
+		$stmtArray = array(
+			
+		);
+
+		return $this->get_fetch_all($query, $stmtArray, "bindValue");
+	}
+
+	public function get_all_tools() {
+		$query = "SELECT * FROM tools";
 
 		$stmt = $this->db->prepare($query);
 		$stmtArray = array(
@@ -170,6 +190,18 @@ class GetData {
 		);
 
 		return $this->get_fetch_data($query, $stmtArray, "bindParam");
+	}
+
+	public function get_tools_by_team($team, $user_status) {
+
+		$query = "SELECT * FROM tools WHERE teams LIKE '%$team%' ";
+
+		$stmt = $this->db->prepare($query);
+		$stmtArray = array(
+
+		);
+
+		return $this->get_fetch_all($query, $stmtArray, "bindValue");
 	}
 
 

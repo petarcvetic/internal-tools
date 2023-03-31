@@ -69,6 +69,27 @@ class InsertData {
 	}
 
 
+	public function insert_tool($tool_name, $tool_url, $tool_username_key, $tool_username, $tool_password_key, $tool_password, $teams) {
+		$query = "INSERT INTO tools (tool_name, tool_url, tool_username_key, tool_username, tool_password_key, tool_password, teams) VALUES (:tool_name, :tool_url, :tool_username_key, :tool_username, :tool_password_key, :tool_password, :teams)";
+
+		$stmt = $this->db->prepare($query);
+		$stmtArray = array(
+			"tool_name" => $tool_name,
+			"tool_url" => $tool_url,
+			"tool_username_key" => $tool_username_key,
+			"tool_username" => $tool_username,
+			"tool_password_key"=>$tool_password_key,
+			"tool_password"=>$tool_password,
+			"teams" => $teams,
+		);
+
+		return $this->insert_data($query, $stmtArray, "bindValue");
+	}
+
+
+
+
+
 
 	/**/
 

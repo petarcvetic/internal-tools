@@ -60,14 +60,23 @@
 		<h1> EXECUTIVE DIGITAL - INTERNAL TOOLS </h1>
 
 		<div class="toolbox">
-			Tools
-			<ul>
-		      <li>Tool 1</li>
-				<li>Tool 2</li>
-				<li>Tool 3</li>
-				<li>Tool 4</li>
-				<li>Tool 5</li>
-				<li>Tool 6</li>
+			<p>Tools</p>
+
+
+			<?php
+				$tools = $getData->get_tools_by_team($_SESSION['sess_team'], $_SESSION['sess_user_status']);
+
+				foreach ($tools as $tool) {
+					echo "
+					<form action='".$tool['tool_url']."' method='post' target='_blank'>
+					    <input type='hidden' name='".$tool['tool_username_key']."' value='".$tool['tool_username']."'>
+					    <input type='hidden' name='".$tool['tool_password_key']."' value='".$tool['tool_password']."'>
+					    <input type='submit' name='submit' value='".$tool['tool_name']."'>
+					</form>
+					";
+				}
+			?>
+
 			</ul>
 		</div>
 

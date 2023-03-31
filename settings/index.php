@@ -75,7 +75,7 @@
 
 	/* KLIKNUTO JE DUGME "ADD USER" */
 	if(isset($_POST["add_user"]) && $_SESSION['sess_user_status']>3){
-		if($_POST['username']!="" && $_POST["password"]!="" && $_POST["email"]!="" && $_POST["first_name"]!="" && $_POST["last_name"]!="" && $_POST["team"]!="" && $_POST["status"]!="" ){
+		if($_POST['username']!="" && $_POST["password"]!="" && $_POST["email"]!="" && $_POST["first_name"]!="" && $_POST["last_name"]!="" && $_POST["user_team"]!="" && $_POST["status"]!="" ){
 
 			$username = strip_tags($_POST["username"]);
 			$password = sha1(strip_tags($_POST["password"]));
@@ -86,12 +86,12 @@
 				$skype  = strip_tags($_POST["skype"]);
 			}
 			else{$skype  = "";}
-			$team = strip_tags($_POST["team"]);
+			$user_team = strip_tags($_POST["user_team"]);
 			$status = strip_tags($_POST["status"]);
 
 			/*AKO UNETI USERNAM I PASSEORD VEC NISU UNETI NOVI USER SE UPISUJE U BAZU*/
 			if($getData->if_username_exists($username, $email)==0 && $getData->if_user_mail_exists($email)==0){
-				$user->register($username,$password,$email,$first_name,$last_name,$skype,$team,$status);
+				$user->register($username,$password,$email,$first_name,$last_name,$skype,$user_team,$status);
 				echo "<script>alert('The user <b>".$username."</b> has been added to the database');</script>";
 			}
 			else{
@@ -110,10 +110,41 @@
 		}
 	}
 
+	/*KLIKNUTO JE ADD TOOL*/
+	if(isset($_POST['add_tool']) && $_SESSION['sess_user_status']>3){
+		if($_POST["tool_url"] && $_POST['tool_username']!="" && $_POST["tool_password"]!=""){
+			$tool_name = strip_tags($_POST['tool_name']);
+			$tool_url = strip_tags($_POST["tool_url"]);
+			$tool_username_key = strip_tags($_POST['tool_username_key']);
+			$tool_username = strip_tags($_POST['tool_username']);
+			$tool_password_key = strip_tags($_POST["tool_password_key"]);
+			$tool_password = strip_tags($_POST["tool_password"]);
+
+			$teams = array();
+			if(isset($_POST['team'])){
+				foreach($_POST['team'] as $team) {
+					$teams[] = $team;
+				}
+			}
+			
+			$tool_teams = implode(",", $teams);
+			echo "<script>alert('".$tool_teams."');</script>";
+
+			if($getData->if_tool_exists($tool_url, $tool_username) == 0){
+				$insertData->insert_tool($tool_name, $tool_url, $tool_username_key, $tool_username, $tool_password_key, $tool_password, $tool_teams);
+			}
+			else{
+				echo "<script>alert('This URL and usename already exists');</script>";
+			}
+		}
+	}
+
+
 	$projects = $getData->get_all_projects();
 	$live_sites = $getData->get_all_sites("live_sites");
 	$stage_sites = $getData->get_all_sites("stage_sites");
 	$users = $getData->get_all_users();
+	$tools = $getData->get_all_tools();
 ?>
 	
 
@@ -210,6 +241,7 @@ if($_SESSION['sess_user_status']>3){
 		</div><!--END Sites-->
 
 
+		<!--ADD USER-->
 		<div class="hidden" id="users">
 			<form method="post" action="">
 				ADD NEW USERS<br>
@@ -228,7 +260,7 @@ if($_SESSION['sess_user_status']>3){
 					<option value="4">Super-admin</option>
 				</select><br>
 				
-				<select name="team" required>
+				<select name="user_team" required>
 					<option value="" selected disabled>Chose a team*</option>
 					<option value="seo">SEO</option>
 					<option value="social">SOCIAL MEDIA</option>
@@ -285,24 +317,66 @@ if($_SESSION['sess_user_status']>3){
 		</div><!--END Users-->
 
 
+		<!--ADD TOOL-->
 		<div class="hidden" id="tools">
 			<form method="post" action="">
-				<input type="checkbox" value="seo"> SEO
+				<b>Select the teams that will use the tool*</b><br>
+				<input type="checkbox" name="team[]" id="seo_team" value="SEO"> SEO <br>
+				<input type="checkbox" name="team[]" id="social_team" value="SOCIAL"> SOCIAL MEDIA <br>
+				<input type="checkbox" name="team[]" id="dev_team" value="DEV"> DEV <br>
+				<input type="checkbox" name="team[]" id="linkbuilding_team" value="LINK"> LINK BUILDING <br>
+				<input type="checkbox" name="team[]" id="content_team" value="CONTENT"> CONTENT WRITING <br>
+				<input type="checkbox" name="team[]" id="it_team" value="IT"> IT <br>
+				<input type="checkbox" name="team[]" id="pm_team" value="PM"> PM <br>
 
 				<br><br>
-				TOOL:<br>
-				<input type="text" name="tool_url" id="tool_url" placeholder="URL for login">
-				<input type="text" name="tool_username" id="tool_username" placeholder="Username">
-				<input type="text" name="tool_password" id="tool_password" placeholder="Password">
+				<b>NEW TOOL:</b><br>
+				<input type="text" name="tool_name" id="tool_name" placeholder="Tool name" required>
+				<input type="text" name="tool_url" id="tool_url" placeholder="URL for login" required><br>
+				<input type="text" name="tool_username_key" id="tool_username_key" placeholder="Username KEY" required>
+				<input type="text" name="tool_username" id="tool_username" placeholder="Username" required><br>
+				<input type="text" name="tool_password_key" id="tool_password_key" placeholder="Password KEY" required>
+				<input type="text" name="tool_password" id="tool_password" placeholder="Password" required>
 
 				<div class="right-button">
-					<input type="submit" name="add_site" id="add_site" class="submit" value="ADD">
+					<input type="submit" name="add_tool" id="add_tool" class="submit" value="ADD TOOL">
 				</div>
 
 			</form>
 			<br><br>
 
+			<table>
+				<tr>
+					<th></th>
+					<th>TOOL NAME</th>
+					<th>TOOL URL</th>
+					<th>USER KEY</th>
+					<th>USERNAME</th>
+					<th>PASSEORD KEY</th>
+					<th>PASSWORD</th>
+					<th>TEAMS</th>
+				</tr>
+			<?php
 			
+			$i = 1; 
+			foreach ($tools as $tool) {
+				echo "
+				<tr>
+					<td>".$i."</td>
+					<td>".$tool['tool_name']."</td>
+					<td>".$tool['tool_url']."</td>
+					<td>".$tool['tool_username_key']."</td>
+					<td>".$tool['tool_username']."</td>
+					<td>".$tool['tool_password_key']."</td>
+					<td>".$tool['tool_password']."</td>
+					<td>".$tool['teams']."</td>
+				</tr>
+				";
+				$i++;
+			}
+			
+			?>
+			</table>
 		</div><!--END tools-->
 <?php 
 }

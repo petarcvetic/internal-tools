@@ -27,6 +27,7 @@ class USER
             $_SESSION['sess_first_name'] = $row['first_name'];
             $_SESSION['sess_last_name'] = $row['last_name'];
             $_SESSION['sess_skype'] = $row['skype'];
+            $_SESSION['sess_team'] = $row['team'];
             $_SESSION['sess_user_status'] = $row['status'];
             
           } else {
