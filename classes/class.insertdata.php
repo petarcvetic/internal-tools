@@ -339,11 +339,11 @@ class InsertData {
 
 	public function verify_user($user_id) {
 
-		$query = "UPDATE users SET status=:status WHERE user_id=:user_id";
+		$query = "UPDATE users SET activated=:activated WHERE user_id=:user_id";
 
 		$stmt = $this->db->prepare($query);
 		$stmtArray = array(
-			"status" => "2",
+			"activated" => "1",
 			"user_id" => $user_id,
 		);
 

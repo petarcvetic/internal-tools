@@ -31,17 +31,27 @@
 ?>
 
 	<div class="container">
-<style>
-body {
-  background-image: ('');
-}
-</style>
+
 <?php
 	/*AKO JE USER ULOGOVAN (ako postoji sesija sess_user_id*/
 	if ($user->is_loggedin() != "") {
+		$user_data = $getData->get_user_by_id($_SESSION['sess_user_id']);
+
+		if($user_data["activated"] == "0"){
+			echo "<script>
+							if (confirm('Please check your email and activate your account!') == true) {
+							  window.location.href = 'logout.php';
+							} else {
+							  window.location.href = 'logout.php';
+							}
+			</script>";
+		}
+
+		
 ?>
 
-	<h1> EXECUTIVE DIGITAL - INTERNAL TOOLS </h1>
+		<h1> EXECUTIVE DIGITAL - INTERNAL TOOLS </h1>
+
 		<div class="toolbox">Tools
 			<ul>
 				<li>NAS</li>
@@ -52,6 +62,7 @@ body {
 				<li>tul4</li>
 			</ul>
 		</div>
+
 
 <?php 
 	}else{

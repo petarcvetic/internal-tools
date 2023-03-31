@@ -187,6 +187,17 @@ class GetData {
 	}
 
 
+	public function get_user_by_id($user_id) {
+		$query = "SELECT * FROM users WHERE user_id=:user_id";
+
+		$stmt = $this->db->prepare($query);
+		$stmtArray = array(
+			"user_id" => $user_id,
+		);
+
+		return $this->get_fetch_data($query, $stmtArray, "bindValue");
+	}
+
 
 
 
@@ -497,17 +508,7 @@ class GetData {
 		return $count;
 	}
 
-	public function get_user_by_id_and_korisnik($id_korisnika, $id_admin) {
-		$query = "SELECT * FROM admin WHERE id_korisnika=:id_korisnika AND id_admin=:id_admin";
 
-		$stmt = $this->db->prepare($query);
-		$stmtArray = array(
-			"id_korisnika" => $id_korisnika,
-			"id_admin" => $id_admin,
-		);
-
-		return $this->get_fetch_data($query, $stmtArray, "bindValue");
-	}
 
 /* STARO */
 	public function get_korisnik($id_korisnika) {
