@@ -5,7 +5,7 @@
 	include $path."dbconfig.php";
 
 	/*AKO USER NIJE ULOGOVAN (ako ne postoji sesija sess_user_id*/
-	if ($user->is_loggedin() == "" or $_SESSION['sess_user_status']<4) {
+	if ($user->is_loggedin() == "" or $_SESSION['sess_user_status']<3) {
 		header('Location: '.$path);
 	}
 
@@ -126,6 +126,7 @@ if($_SESSION['sess_user_status']>3){
 		<div class="sidebar-fixed">
 			<button class="submit" id="sites-btn" onclick="display_option('sites')">SITES/PROJECTS</button><br>
 			<button class="submit" id="users-btn" onclick="display_option('users')">USERS</button><br>
+			<button class="submit" id="tools-btn" onclick="display_option('tools')">TOOLS</button><br>
 			
 		</div>
 
@@ -205,7 +206,7 @@ if($_SESSION['sess_user_status']>3){
 				}
 				?>
 				</table>
-			</div><!--END live-sites-->
+			</div><!--END projects-->
 		</div><!--END Sites-->
 
 
@@ -283,12 +284,26 @@ if($_SESSION['sess_user_status']>3){
 			</table>
 		</div><!--END Users-->
 
-		<div class="hidden" id="projects">
-			ADD NEW PROJECT
+
+		<div class="hidden" id="tools">
 			<form method="post" action="">
+				<input type="checkbox" value="seo"> SEO
+
+				<br><br>
+				TOOL:<br>
+				<input type="text" name="tool_url" id="tool_url" placeholder="URL for login">
+				<input type="text" name="tool_username" id="tool_username" placeholder="Username">
+				<input type="text" name="tool_password" id="tool_password" placeholder="Password">
+
+				<div class="right-button">
+					<input type="submit" name="add_site" id="add_site" class="submit" value="ADD">
+				</div>
 
 			</form>
-		</div><!--END projects-->
+			<br><br>
+
+			
+		</div><!--END tools-->
 <?php 
 }
 ?>
