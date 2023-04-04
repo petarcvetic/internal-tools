@@ -71,7 +71,7 @@
 					<form action='".$tool['tool_url']."' method='post' target='_blank'>
 					    <input type='hidden' name='".$tool['tool_username_key']."' value='".$tool['tool_username']."'>
 					    <input type='hidden' name='".$tool['tool_password_key']."' value='".$tool['tool_password']."'>
-					    <input type='submit' name='submit' value='".$tool['tool_name']."'>
+					    <input type='submit' class='submit' name='submit' value='".$tool['tool_name']."'>
 					</form>
 					";
 				}
