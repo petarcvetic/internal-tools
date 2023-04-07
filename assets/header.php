@@ -1,6 +1,8 @@
 <?php 
-	error_reporting(E_ALL);
-	ini_set('display_errors', '1');
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 ?>
 
 <!DOCTYPE html>
@@ -8,8 +10,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="robots" content="noindex">
-	<link rel="icon" href="mg/favicon.ico" type="image/x-icon"/>
-	<link rel="shortcut icon" type="<?php echo $path; ?>image/png" href="favicon-16x16.png"/>
+	<link rel="icon" href="<?php echo $path; ?>img/favicon.ico" type="image/x-icon"/>
+	<!--<link rel="shortcut icon" type="png" href="<?php echo $path; ?>img/favicon-16x16.png"/> -->
 	<!--<meta http-equiv="refresh" content="5">-->
 
 	<link rel="stylesheet" href="<?php echo $path; ?>bootstrap/css/bootstrap.min.css" media="screen">
@@ -74,7 +76,7 @@
 		</div>
 
 		<div class="login-header">
-			<a href="<?php echo $path; ?>logout.php"><button class="submit yellow-button" name="logout"> LOGOUT </button></a>
+			<a href="<?php echo $path; ?>logout.php"><button class="submit logout yellow-button" name="logout"> LOGOUT </button></a>
 		</div>
 
 	</nav>

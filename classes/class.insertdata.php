@@ -87,7 +87,23 @@ class InsertData {
 	}
 
 
+	public function edit_tool($tool_id, $tool_name, $tool_url, $tool_username_key, $tool_username, $tool_password_key, $tool_password, $teams) {
+		$query = "UPDATE tools SET tool_name=:tool_name, tool_url=:tool_url, tool_username_key=:tool_username_key, tool_username=:tool_username, tool_password_key=:tool_password_key, tool_password=:tool_password, teams=:teams WHERE tool_id=:tool_id";
 
+		$stmt = $this->db->prepare($query);
+		$stmtArray = array(
+			"tool_name" => $tool_name,
+			"tool_url" => $tool_url,
+			"tool_username_key" => $tool_username_key,
+			"tool_username" => $tool_username,
+			"tool_password_key" => $tool_password_key,
+			"tool_password" => $tool_password,
+			"teams" => $teams,
+			"tool_id" => $tool_id,
+		);
+
+		return $this->insert_data($query, $stmtArray, "bindValue");
+	}
 
 
 

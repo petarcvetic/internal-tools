@@ -1,5 +1,4 @@
 <?php
-
 	$project_id = "";
 	$path = "../";
 	include $path."dbconfig.php";
@@ -128,13 +127,44 @@
 			}
 			
 			$tool_teams = implode(",", $teams);
-			echo "<script>alert('".$tool_teams."');</script>";
+//			echo "<script>alert('".$tool_teams."');</script>";
 
 			if($getData->if_tool_exists($tool_url, $tool_username) == 0){
 				$insertData->insert_tool($tool_name, $tool_url, $tool_username_key, $tool_username, $tool_password_key, $tool_password, $tool_teams);
 			}
 			else{
 				echo "<script>alert('This URL and usename already exists');</script>";
+			}
+		}
+	}
+
+	/*Kliknuto je EDIT TOOL*/
+	if(isset($_POST['edit_tool']) && $_SESSION['sess_user_status']>3){
+
+		if($_POST["edit_tool_url"] && $_POST['edit_tool_username']!="" && $_POST["edit_tool_password"]!=""){
+			$tool_id = strip_tags($_POST['edit_tool_id']);
+			$tool_name = strip_tags($_POST['edit_tool_name']);
+			$tool_url = strip_tags($_POST["edit_tool_url"]);
+			$tool_username_key = strip_tags($_POST['edit_tool_username_key']);
+			$tool_username = strip_tags($_POST['edit_tool_username']);
+			$tool_password_key = strip_tags($_POST["edit_tool_password_key"]);
+			$tool_password = strip_tags($_POST["edit_tool_password"]);
+
+			$teams = array();
+			if(isset($_POST['edit_team'])){
+				foreach($_POST['edit_team'] as $team) {
+					$teams[] = $team;
+				}
+			}
+			
+			$tool_teams = implode(",", $teams);
+//			echo "<script>alert('".$tool_teams."');</script>";
+
+			if($getData->if_tool_id_exists($tool_id) == 1){
+				$insertData->edit_tool($tool_id, $tool_name, $tool_url, $tool_username_key, $tool_username, $tool_password_key, $tool_password, $tool_teams);
+			}
+			else{
+				echo "<script>alert('This tool do not exists');</script>";
 			}
 		}
 	}
@@ -147,8 +177,27 @@
 	$tools = $getData->get_all_tools();
 ?>
 	
-
+	<div id="alert_box"></div>
 	<div class="container">
+		<div id="fixed_background">
+			<div class="edit_window" id="insert_lid_window">
+				<div>
+					<button class="kill" id="kill" onclick="kill_popup()">X</button>
+				</div>
+
+				<div id="edit_site" class="popup-window hidden">
+					<?php include $path."assets/edit-site.php"; ?>
+				</div>
+
+				<div id="edit_user" class="hidden">
+					<?php include $path."assets/edit-user.php"; ?>
+				</div>
+
+				<div id="edit_tool" class="hidden insert_lid_window">
+					<?php include $path."assets/edit-tool.php"; ?>
+				</div>
+			</div>
+		</div>
 
 <?php 
 if($_SESSION['sess_user_status']>3){
@@ -355,6 +404,7 @@ if($_SESSION['sess_user_status']>3){
 					<th>PASSEORD KEY</th>
 					<th>PASSWORD</th>
 					<th>TEAMS</th>
+					<th></th>
 				</tr>
 			<?php
 			
@@ -370,6 +420,10 @@ if($_SESSION['sess_user_status']>3){
 					<td>".$tool['tool_password_key']."</td>
 					<td>".$tool['tool_password']."</td>
 					<td>".$tool['teams']."</td>
+					<td>
+						<button class='center-text edit' onclick='edit_table(" . '"tools", "' . $tool['tool_id'] . '"' . ")'><i class='fa fa-pencil'></i></button><br>
+						<button class='center-text delete' onclick='delete_row(" . '"'.$tool['tool_name'].'", "' . $tool['tool_name'] . '"' . ")'><i class='fa fa-trash' aria-hidden='true'></i></button>
+					</td>
 				</tr>
 				";
 				$i++;
@@ -392,6 +446,38 @@ if($_SESSION['sess_user_status']>3){
 
 
 <script>
+	function kill_popup(){
+	  	$("#contacts").html("");
+	  	$("#contact_info").html("");
+	  	$("#alert_box").html("");
+	    $("#popup_window").css({"display":"none"});
+	    $("#popup_background").css({"display":"none"});
+	    $("#fixed_background").css({"display":"none"});
+	}
+
+	function edit_table(table, id){
+		var dataString = "edit_table=1&table="+table+"&id="+id;
+		$("#fixed_background, #edit_tool").css("display","block");
+
+
+		
+		$.ajax
+		({
+		  type: "POST",
+		  url: "../ajax-response.php",
+		  data: dataString,
+		  success: function(html)
+		  {
+		     $("#alert_box").html(html);
+		  },
+		  complete: function(){
+             $('#fixed_background').css("display","block");
+          }
+		});
+	
+	}
+
+
 	function display_option(option){
 		$(".hidden").css("display","none");
 		$("#"+option).css("display","block");

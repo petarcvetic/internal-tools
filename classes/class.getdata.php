@@ -136,6 +136,15 @@ class GetData {
 		return $count;
 	}
 
+	public function if_tool_id_exists($tool_id) {
+		$query = "SELECT COUNT(*) FROM tools WHERE tool_id='$tool_id'";
+
+		$stmt = $this->db->prepare($query);
+		$stmt->execute();
+		$count = $stmt->fetchColumn();
+		return $count;
+	}
+
 	public function get_poslednji_projekat(){
 
 		$query = "SELECT * FROM `projects` ORDER BY project_id DESC LIMIT 1";
@@ -202,6 +211,17 @@ class GetData {
 		);
 
 		return $this->get_fetch_all($query, $stmtArray, "bindValue");
+	}
+
+	public function get_tool_by_id($tool_id) {
+		$query = "SELECT * FROM tools WHERE tool_id=:tool_id";
+
+		$stmt = $this->db->prepare($query);
+		$stmtArray = array(
+			"tool_id" => $tool_id,
+		);
+
+		return $this->get_fetch_data($query, $stmtArray, "bindValue");
 	}
 
 
