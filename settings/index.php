@@ -179,6 +179,7 @@
 	
 	<div id="alert_box"></div>
 	<div class="container">
+
 		<div id="fixed_background">
 			<div class="edit_window" id="insert_lid_window">
 				<div>
@@ -224,7 +225,7 @@ if($_SESSION['sess_user_status']>3){
 				<br>
 				<div id="new-project-btn" class="submit" onclick="new_project_form()">NEW PROJECT</div>
 				<br>
-				<div id="toggle_hide">
+				<div id="new_project_form">
 					Add new project:<br> 
 					<input type="text" name="project_name" id="project_name" placeholder="Project Name">
 					<input type="text" name="teamwork_link" id="teamwork_link" placeholder="TeamWork Link">
@@ -492,7 +493,7 @@ if($_SESSION['sess_user_status']>3){
 		
 		if(option != 0){
 			$("#project_name,#teamwork_link,#client_email").val("");
-			$("#toggle_hide").css("display","none");
+			$("#new_project_form").css("display","none");
 			$("#new-project-btn").css("display","block");
 		}
 		else{
@@ -502,10 +503,10 @@ if($_SESSION['sess_user_status']>3){
 
 
 	function new_project_form(){
-		$('#project>option:eq(0)').prop('selected', true);
 
-		$("#toggle_hide").css("display","block");
-
+		$('#project option[value="0"]').prop("selected", true);
+		$("#new_project_form").css("display","block");
 		$("#new-project-btn").css("display","none");
+
 	}
 </script>

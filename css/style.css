@@ -40,7 +40,7 @@ h3{
 	display: block;
 }
 
-.hide, #toggle_hide, .hidden{
+.hide, .hidden, #new_project_form{
 	display: none;
 }
 

@@ -24,8 +24,11 @@ error_reporting(E_ALL);
 	<link rel="stylesheet" href="<?php echo $path; ?>css/style.css" type="text/css"  />
 	<link rel="stylesheet" href="<?php echo $path; ?>css/style-min.css" type="text/css"  />
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<!--
 	<script src="<?php echo $path; ?>js/jquery.min.js" type="text/javascript"></script>
     <script src="<?php echo $path; ?>js/jquery-ui.min.js" type="text/javascript"></script>
+-->
     <script type="text/javascript" src="<?php echo $path; ?>js/functionsJS.js"></script>
 
 	<title>Tools</title>
