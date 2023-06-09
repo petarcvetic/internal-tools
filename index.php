@@ -4,11 +4,19 @@
 	$keywords = "mont,kartica,firme,dobavljac,faktura";
 	$description = "Knjigovodstvena aplikacija za izlistavanje kartice firme i unos faktura";
 
+
+	$cotainer_bg = "container_bg_gray"; 
+
+
 	$today = date("Y-m-d");
 
 	$msg = $path = "";
 
 	include "dbconfig.php";
+
+	if ($user->is_loggedin() != "") {
+		$cotainer_bg = "container_bg_color"; 
+	}
 
 
 	/*KLIKNUTO JE DUGME LOGIN NA LOGIN FORMI*/
@@ -30,15 +38,10 @@
 	include $path."assets/header.php";
 ?>
 
-	<div class="container">
-<style>
-.container {
+	<div class="container <?php echo $cotainer_bg ?>">
 
-   background: url(img/exe-digi.webp) no-repeat center center fixed; 
-  background-size: 30%;
 
-}
-</style>
+
 <?php
 	/*AKO JE USER ULOGOVAN (ako postoji sesija sess_user_id*/
 	if ($user->is_loggedin() != "") {

@@ -11,9 +11,9 @@ if (isset($_SESSION['error_msg'])) {
   <br>
 
   <form class="login-form" id="login" method="POST">
-
-    <div class="center-text"> Login: </div>
-
+    <fieldset>
+      <div class="center-text"> <b>LOGIN:</b> </div>
+<!--      <legend><b>LOGIN</b></legend>  -->
 
       <div class="login-div">
         <input type="text" name="username" id="username" class="center-text input-field" placeholder="Username" autofocus>
@@ -22,7 +22,7 @@ if (isset($_SESSION['error_msg'])) {
       <div class="login-div">
         <input type="password" name="password" id="user-password" class="center-text input-field" placeholder="Password">
         <div class="label-center">
-          <label><input type="checkbox" onclick="showPassword()">Show Password</label>
+          <label><input type="checkbox" onclick="showPassword()"> Show Password</label>
         </div>
         <br><br>
       </div>
@@ -33,6 +33,8 @@ if (isset($_SESSION['error_msg'])) {
 
 
       <div class="loginMsg"><?php echo $msg; ?></div>
+
+    </fieldset>
 
   </form>
 
